@@ -1,5 +1,37 @@
-<h2><%= @restaurant.name %></h2>
-<p><%= @restaurant.address %></p>
-<p><%= @restaurant.category %></p>
+<div class='container show-restaurant'>
+  <h1><%= @restaurant.name %></h1>
+  <p class='restaurant-details'>
+    <i class="fa-solid fa-phone"></i> <%= @restaurant.phone_number %> |
+    <em><%= @restaurant.category.capitalize %> Food</em>
+  </p>
+  <p class='restaurant-details restaurant-address'>
+      <i class="fa-solid fa-map-location"></i> <%= @restaurant.address %></em>
+  </p>
+  <hr>
+  <ul>
+    <li class='card-add-review mb-3'>
+      <%= link_to new_restaurant_review_path(@restaurant), class:'link-add-restaurant' do%>
+        <h4>
+          <i class="fa-solid fa-circle-plus"></i>
+          <%= "Add a Review"%>
+        </h4>
+      <% end %>
+    </li>
+    <% @restaurant.reviews.each do |review| %>
+    <li class='mb-5 card-review'>
+    <p>
+      <% review.rating.times do%>
+        <i class="fa-solid fa-star"></i>
+      <% end %>
+      <% (5 - review.rating).times do%>
+        <i class="fa-regular fa-star"></i>
+      <% end %>
 
+     </p>
 
+      <%= review.content %>
+    </li>
+    <% end %>
+  </ul>
+  <%= link_to 'Back', restaurants_path %>
+</div>
